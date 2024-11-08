@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    quality_report (0.1.0)
+    quality_report (1.0.0)
       rubocop (~> 1.68)
 
 GEM
