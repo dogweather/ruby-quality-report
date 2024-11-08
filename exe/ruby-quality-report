@@ -16,12 +16,10 @@ def create_combined_stats(part_stats, whole_stats)
   whole_data = make_data_set(whole_stats)
 
   whole_data.map do |label, whole_count|
-    {
-      label:,
-      part_count: part_data[label] || 0,
-      whole_count:,
-      percent: float_to_percent(part_count.to_f / whole_count)
-    }
+    part_count = part_data[label] || 0
+    percent    = float_to_percent(part_count.to_f / whole_count)
+
+    { label:, part_count:, whole_count:, percent: }
   end
 end
 
@@ -50,7 +48,7 @@ def generate_table(combined_stats)
     table << [stats[:label], "#{stats[:percent]}%", stats[:part_count], stats[:whole_count]]
   end
 
-  table.render(:unicode)
+  table.render(:unicode, alignments: %i[left right right right])
 end
 
 def generate_data(combined_stats)
