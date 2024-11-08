@@ -57,6 +57,21 @@ It then calculates the percentage of warnings per line written, per author. Each
 - [ ] Add a progress bar.
 
 
+## Intent
+
+This is a team management tool to:
+
+- understand the quality of the code your team is producing
+- identify programmers who'd benefit from mentorship and education
+
+----
+
+Diving a little deeper, I've seen the phenomenon of micro-economies of bug-creation and bug-fixing develop within teams. Some developers appear to be extremely productive. They write a lot of code. But they also introduce a lot of bugs.
+
+This code quality report doesn't track **bugs** per se. But it does track **quality**. And these warnings correlate strongly with bugs:
+
+
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/dogweather/ruby-quality-report.
