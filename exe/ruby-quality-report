@@ -62,14 +62,14 @@ def generate_data(combined_stats)
 end
 
 def should_skip?(stats)
-  less_than_200_lines_total?(stats) || no_commits_in_last_30_days?(stats)
+  less_than_200_lines_total?(stats) || no_commits_in_last_60_days?(stats)
 end
 
 def less_than_200_lines_total?(stats)
   stats[:whole_count] < 200
 end
 
-def no_commits_in_last_30_days?(stats)
+def no_commits_in_last_60_days?(stats)
   author = stats[:label]
 
   # Get the last commit timestamp in Unix epoch format
@@ -78,9 +78,9 @@ def no_commits_in_last_30_days?(stats)
 
   # Convert Unix timestamp to Time object
   last_commit_time = Time.at(last_commit.to_i)
-  thirty_days_ago  = Time.now - (30 * 24 * 60 * 60) # 30 days in seconds
+  sixty_days_ago   = Time.now - (60 * 24 * 60 * 60) # 60 days in seconds
 
-  last_commit_time < thirty_days_ago
+  last_commit_time < sixty_days_ago
 end
 
 def float_to_percent(a_float)
