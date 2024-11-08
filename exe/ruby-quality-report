@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'tty-table'
+
 #
 # ruby-quality-report
 #
@@ -39,6 +41,14 @@ def generate_csv(combined_stats)
     .join("\n")
 end
 
+def generate_table(combined_stats)
+  table = TTY::Table.new(header: ["Author", "Percent Flagged", "Flagged Lines", "All Lines"])
+  generate_data(combined_stats).each do |stats|
+    table << [stats[:label], stats[:percent], stats[:part_count], stats[:whole_count]]
+  end
+  table
+end
+
 def generate_data(combined_stats)
   combined_stats
     .sort_by{|s| s[:percent]}
@@ -55,3 +65,7 @@ WHOLE_STATS = `ruby-line-authors | frequency-list`
 COMBINED_STATS = create_combined_stats(PART_STATS, WHOLE_STATS)
 
 puts generate_csv(COMBINED_STATS)
+
+puts
+
+puts generate_table(COMBINED_STATS)

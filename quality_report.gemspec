@@ -34,7 +34,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rubocop',   '~> 1.68'
   spec.add_dependency "tty-table", "~> 0.12.0"
 
-
   spec.add_development_dependency 'rspec', '~> 3.2'
 
   # For more information and examples about making a new gem, check out our
