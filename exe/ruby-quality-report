@@ -49,7 +49,7 @@ def generate_table(combined_stats)
   generate_data(combined_stats).each do |stats|
     next if should_skip?(stats)
 
-    table << [stats[:label], stats[:percent], stats[:part_count], stats[:whole_count]]
+    table << [stats[:label], "#{stats[:percent]}%", stats[:part_count], stats[:whole_count]]
   end
 
   table.render(:unicode)
