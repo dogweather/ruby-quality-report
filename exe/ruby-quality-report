@@ -72,8 +72,8 @@ end
 #
 # Execution begins here
 #
-PART_STATS     = `ruby-author-warnings | frequency-list`
-WHOLE_STATS    = `ruby-line-authors | frequency-list`
+PART_STATS     = `ruby-author-warnings | frequency-list`.freeze
+WHOLE_STATS    = `ruby-line-authors | frequency-list`.freeze
 COMBINED_STATS = create_combined_stats(PART_STATS, WHOLE_STATS)
 
 puts generate_table(COMBINED_STATS)
