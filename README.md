@@ -24,7 +24,7 @@ This is showing, for each author, the percentage of problematic lines of code. L
 It excludes:
 
 - authors with fewer than 200 lines of code
-- authors with no contributions in the previous 60 days
+- authors with no commits in the previous 60 days
 
 
 ### In Rails Projects
