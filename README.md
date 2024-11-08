@@ -75,6 +75,7 @@ Code complexity is the killer of understandability. Studies have found that deve
 - [ ] Make the filters configurable.
 - [ ] Speed up the scan.
 - [ ] Add a progress bar.
+- [ ] Refactor from script-style coding to a more standard Ruby project.
 
 
 ## Contributing
