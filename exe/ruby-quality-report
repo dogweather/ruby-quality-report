@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'tty-table'
+require 'pastel'
 
 #
 # ruby-quality-report
@@ -43,15 +44,25 @@ def generate_csv(combined_stats)
 end
 
 def generate_table(combined_stats)
-  table = TTY::Table.new(header: ['Author', 'Percent Flagged', 'Flagged Lines', 'All Lines'])
+  table      = TTY::Table.new(header: ['Author', 'Percent Flagged', 'Flagged Lines', 'All Lines'])
+  table_data = generate_data(combined_stats).reject { should_skip?(_1) }
 
-  generate_data(combined_stats).each do |stats|
-    next if should_skip?(stats)
-
+  table_data.each do |stats|
     table << [stats[:label], "#{stats[:percent]}%", stats[:part_count], stats[:whole_count]]
   end
 
-  table.render(:unicode, alignments: %i[left right right right])
+  render_table(table, table_data)
+end
+
+def render_table(table, table_data)
+  pastel = Pastel.new
+
+  table.render(:unicode, alignments: %i[left right right right], padding: [0, 1]) do |renderer|
+    renderer.border.style = :dim
+    renderer.filter = lambda { |val, row_index, _col_index|
+      (row_index > 0) && table_data[row_index - 1][:percent] > 50 ? pastel.bright_white.on_red(val) : val
+    }
+  end
 end
 
 def generate_data(combined_stats)
