@@ -19,7 +19,7 @@ After a bit of a wait, it outputs a report in table form:
 This is showing, for each author, the percentage of problematic lines of code. Lower is better.
 
 
-### To improve the relevance, it has two filters.
+### For improved relevance, it has two filters.
 
 It excludes:
 
@@ -29,7 +29,7 @@ It excludes:
 
 ### In Rails Projects
 
-This works in Rails projects too. It generates the report for the current directory and downwards. In my testing,
+This works great in Rails projects. It generates the report for code in the current directory and downwards. In my testing,
 I like the results best when run from the `/app` directory. This is how I generated the report, above.
 
 
@@ -64,13 +64,17 @@ This is a team management tool to:
 - understand the quality of the code your team is producing
 - identify programmers who'd benefit from mentorship and education
 
-----
+## Foundational Research
 
-Diving a little deeper, I've seen the phenomenon of micro-economies of bug-creation and bug-fixing develop within teams. Some developers appear to be extremely productive. They write a lot of code. But they also introduce a lot of bugs.
+Diving a little deeper, I've seen the phenomenon of micro-economies of bug-creation and bug-fixing develop within teams. Some developers appear to be extremely productive. They write a lot of code. But they also introduce a lot of bugs. The productivity is illusory.
 
-This code quality report doesn't track **bugs** per se. But it does track **quality**. And these warnings correlate strongly with bugs:
+This code quality report doesn't track **bugs** per se. But it does track **quality and complexity**. Researchers have found a strong correlation between complexity and bug rate [1]. This link is reflected, _e.g.,_ in international safety standards that mandate low software complexity to reduce failures [2].
 
+Code complexity is the killer of understandability. Studies have found that developers devote 64% of their time to understanding code, while only 5% is spent on actually modifying it [3].
 
+1. De Silva, Dilshan, et al. The Relationship between Code Complexity and Software Quality: An Empirical Study. 2023, https://www.researchgate.net/publication/370761578_The_Relationship_between_Code_Complexity_and_Software_Quality_An_Empirical_Study.
+2.  See e.g., ISO 26262-1:2018(En), Road Vehicles — Functional Safety — Part 1: Vocabulary. https://www.iso.org/obp/ui/en/#iso:std:iso:26262:-1:ed-2:v1:en. Accessed 29 Sept. 2024.
+3.  Feitelson, Dror G. “From Code Complexity Metrics to Program Comprehension.” Communications of the ACM, vol. 66, no. 5, May 2023, pp. 52–61. DOI.org (Crossref), https://doi.org/10.1145/3546576.
 
 ## Contributing
 
