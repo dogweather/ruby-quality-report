@@ -42,12 +42,13 @@ def generate_csv(combined_stats)
 end
 
 def generate_table(combined_stats)
-  renderer = TTY::Table::Renderer::Unicode.new(table)
   table = TTY::Table.new(header: ["Author", "Percent Flagged", "Flagged Lines", "All Lines"])
+
   generate_data(combined_stats).each do |stats|
     table << [stats[:label], float_to_percent(stats[:percent]), stats[:part_count], stats[:whole_count]]
   end
-  table.render(renderer)
+
+  table.render(:unicode)
 end
 
 def generate_data(combined_stats)
@@ -68,9 +69,5 @@ PART_STATS  = `ruby-author-warnings | frequency-list`
 WHOLE_STATS = `ruby-line-authors | frequency-list`
 
 COMBINED_STATS = create_combined_stats(PART_STATS, WHOLE_STATS)
-
-puts generate_csv(COMBINED_STATS)
-
-puts
 
 puts generate_table(COMBINED_STATS)
