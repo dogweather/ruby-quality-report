@@ -1,3 +1,53 @@
-#!/bin/bash	
+#!/usr/bin/env ruby
 
-echo Hello World
+#
+# ruby-quality-report
+#
+# This script outputs a CSV spreadsheet file showing the percentage
+# of lines of code written by each author that have been flagged as
+# having too high of a complexity.
+#
+
+def create_combined_stats(part_stats, whole_stats)
+  part_data  = make_data_set(part_stats)
+  whole_data = make_data_set(whole_stats)
+
+  whole_data.map do |label, whole_count|
+    part_count = part_data[label] || 0
+    {
+      label:,
+      part_count:,
+      whole_count:,
+      percent: part_count.to_f / whole_count.to_f
+    }
+  end
+end
+
+def make_data_set(two_column_data)
+  hash = {}
+  two_column_data.each_line do |line|
+    count, label = line.split(' ')
+    hash[label] = count.to_i
+  end
+  hash
+end
+
+def generate_csv(combined_stats)
+  combined_stats
+    .sort_by{|s| s[:percent]}
+    .reverse
+    .map{ |stats| [stats[:label], stats[:percent], stats[:part_count], stats[:whole_count]].join(',') }
+    .tap{|x| x.prepend(["Author,Percent Flagged,Flagged Lines,All Lines"])}
+    .join("\n")
+end
+
+
+#
+# Execution begins here
+#
+PART_STATS  = `ruby-author-warnings | frequency-list`
+WHOLE_STATS = `ruby-line-authors | frequency-list`
+
+COMBINED_STATS = create_combined_stats(PART_STATS, WHOLE_STATS)
+
+puts generate_csv(COMBINED_STATS)
