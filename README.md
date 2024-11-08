@@ -60,7 +60,7 @@ Diving a little deeper, I've seen the phenomenon of micro-economies of bug-creat
 
 This code quality report doesn't track **bugs** per se. But it does report **quality and complexity**. Researchers have found a strong correlation between complexity and bug rate [1]. This link is reflected, _e.g.,_ in international safety standards that mandate low software complexity to reduce failures [2].
 
-Code complexity is the killer of understandability. Studies have found that developers devote 64% of their time to understanding code, while only 5% is spent on actually modifying it [3].
+Complex code introduces bugs in a second, more subtle way. This is because code complexity is the killer of understandability. Studies have found that developers devote 64% of their time to understanding code, while only 5% is spent on actually modifying it [3].
 
 1. De Silva, Dilshan, et al. The Relationship between Code Complexity and Software Quality: An Empirical Study. 2023, https://www.researchgate.net/publication/370761578_The_Relationship_between_Code_Complexity_and_Software_Quality_An_Empirical_Study.
 2.  See e.g., ISO 26262-1:2018(En), Road Vehicles — Functional Safety — Part 1: Vocabulary. https://www.iso.org/obp/ui/en/#iso:std:iso:26262:-1:ed-2:v1:en. Accessed 29 Sept. 2024.
