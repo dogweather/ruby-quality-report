@@ -35,7 +35,7 @@ I like the results best when run from the `/app` directory. This is how I genera
 
 ## How it works
 
-It runs [Rubocop metrics cops](https://docs.rubocop.org/rubocop/cops_metrics.html) on `*.rb` files that flag single lines or methods. I.e., it skips checks that flag entire files.
+It runs a subset of [Rubocop Metrics cops](https://docs.rubocop.org/rubocop/cops_metrics.html) on `*.rb` files that flag single lines or methods:
 
 - [ABC Size](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsabcsize)
 - [Block Length](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsblocklength)
@@ -44,7 +44,7 @@ It runs [Rubocop metrics cops](https://docs.rubocop.org/rubocop/cops_metrics.htm
 - [Method Length](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsmethodlength)
 - [Perceived Complexity](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsperceivedcomplexity)
 
-It then calculates the percentage of lines flagged by each check, per author. Each failing check is another flag.
+It then calculates the percentage of warnings per line written, per author. Each failing check is another warning.
 
 
 ## Roadmap
