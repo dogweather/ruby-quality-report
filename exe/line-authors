@@ -14,19 +14,19 @@
 #
 
 GIT_COMMAND = case ARGV.length
-	when 3
-		filename, start_line, end_line = ARGV
-		"git blame --line-porcelain -L #{start_line},#{end_line} #{filename}"
-	when 1
-		filename = ARGV[0]
-		"git blame --line-porcelain #{filename}"
-	else
-		puts "Usage: line-authors <filename> <start line> <end line>"
-		puts "       line-authors <filename>"
-		exit 1
-	end
+              when 3
+                filename, start_line, end_line = ARGV
+                "git blame --line-porcelain -L #{start_line},#{end_line} #{filename}"
+              when 1
+                filename = ARGV[0]
+                "git blame --line-porcelain #{filename}"
+              else
+                puts 'Usage: line-authors <filename> <start line> <end line>'
+                puts '       line-authors <filename>'
+                exit 1
+              end
 
-puts `#{GIT_COMMAND}`
-	.lines
-	.select{ |line| line.start_with?('author ') }
-	.map{ |line| line.split(' ')[1] }
+puts(`#{GIT_COMMAND}`
+   .lines
+   .select { |line| line.start_with?('author ') }
+   .map { |line| line.split(' ')[1] })
