@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -e
+#!/usr/bin/env ruby
 
 #
 # frequency-list
@@ -8,7 +7,7 @@ set -e
 # Output: The unique lines in the input, sorted by frequency of occurrence.
 #
 # EXAMPLE
-# 
+#
 # Input:
 #
 #   apple
@@ -23,4 +22,14 @@ set -e
 #   1 cherry
 #
 
-sort | uniq -c | sort --numeric --reverse
+lines = ARGF.readlines
+
+frequency = lines.each_with_object(Hash.new(0)) do |line, counts|
+  counts[line.chomp] += 1
+end
+
+sorted_frequency = frequency.sort_by { |_, count| -count }
+
+sorted_frequency.each do |line, count|
+  puts "#{count} #{line}"
+end
