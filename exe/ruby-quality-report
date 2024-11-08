@@ -54,7 +54,6 @@ end
 def generate_data(combined_stats)
   combined_stats
     .sort_by { |s| s[:percent] }
-    .reverse
 end
 
 def should_skip?(stats)
