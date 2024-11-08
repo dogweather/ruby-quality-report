@@ -29,8 +29,8 @@ It excludes:
 
 ### In Rails Projects
 
-This works great in Rails projects. It generates the report for code in the current directory and downwards. In my testing,
-I like the results best when run from the `/app` directory. This is how I generated the report, above.
+This works great in Rails projects. It examines code recursively starting in the current directory. In my testing,
+I like the results best when run from `/app`. This is how I generated the report, above.
 
 
 ## How it works
