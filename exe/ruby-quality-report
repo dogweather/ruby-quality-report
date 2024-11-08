@@ -10,6 +10,9 @@ require 'tty-table'
 # of lines of code written by each author that have been flagged as
 # having too high of a complexity.
 #
+#
+
+SIXTY_DAYS_IN_SECONDS = 60 * 24 * 60 * 60
 
 def create_combined_stats(part_stats, whole_stats)
   part_data  = make_data_set(part_stats)
@@ -73,7 +76,7 @@ def no_commits_in_last_60_days?(stats)
 
   # Convert Unix timestamp to Time object
   last_commit_time = Time.at(last_commit.to_i)
-  sixty_days_ago   = Time.now - (60 * 24 * 60 * 60) # 60 days in seconds
+  sixty_days_ago   = Time.now - SIXTY_DAYS_IN_SECONDS
 
   last_commit_time < sixty_days_ago
 end
