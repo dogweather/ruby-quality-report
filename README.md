@@ -1,4 +1,4 @@
-# QualityReport
+# Ruby Quality Report
 
 ## Usage
 
