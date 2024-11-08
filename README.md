@@ -35,14 +35,14 @@ I like the results best when run from the `/app` directory. This is how I genera
 
 ## How it works
 
-It runs Rubocop code quality checks on `*.rb` files that flag single lines or methods. I.e., it skips checks that flag entire files.
+It runs [Rubocop metrics cops](https://docs.rubocop.org/rubocop/cops_metrics.html) on `*.rb` files that flag single lines or methods. I.e., it skips checks that flag entire files.
 
-- ABC Size
-- Block Length
-- Block Nesting
-- Cyclomatic Complexity
-- Method Length
-- Perceived Complexity
+- [ABC Size](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsabcsize)
+- [Block Length](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsblocklength)
+- [Block Nesting](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsblocknesting)
+- [Cyclomatic Complexity](https://docs.rubocop.org/rubocop/cops_metrics.html#metricscyclomaticcomplexity)
+- [Method Length](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsmethodlength)
+- [Perceived Complexity](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsperceivedcomplexity)
 
 It then calculates the percentage of lines flagged by each check, per author. Each failing check is another flag.
 
