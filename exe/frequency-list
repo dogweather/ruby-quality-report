@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#
+# frequency-list
+#
+# Input:  A list of lines.
+# Output: The unique lines in the input, sorted by frequency of occurrence.
+#
+# EXAMPLE
+# 
+# Input:
+#
+#   apple
+#   banana
+#   apple
+#   cherry
+#
+# Output:
+#
+#   2 apple
+#   1 banana
+#   1 cherry
+#
+
+sort | uniq -c | sort --numeric --reverse

@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+require 'json'
+
+#
+# ruby-author-warnings
+#
+# This script outputs the authors of the lines of code that
+# have been flagged by Rubocop as having too high of a complexity.
+#
+# Three metrics are used to determine complexity:
+#
+# - ABC Size
+# - Cyclomatic Complexity
+# - Perceived Complexity
+#
+# Each line of code can trigger one or more of these metrics.
+# Each triggered line is listed as a separate warning.
+#
+
+RUBOCOP_WARNINGS = `rubocop --format json --force-default-config --only Metrics/AbcSize,Metrics/BlockLength,Metrics/BlockNesting,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity`
+
+LOCATIONS =
+  JSON
+    .parse(RUBOCOP_WARNINGS)['files']
+    .reject{ |f| f['offenses'].empty? }
+    .map{ |f| f['offenses']
+      .map{|o| { path: f['path'], begin: o['location']['start_line'], end: o['location']['last_line'] }}}
+    .flatten
+
+LOCATIONS.each do |location|
+  puts `line-authors #{location[:path]} #{location[:begin]} #{location[:end]}`
+end

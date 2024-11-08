@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+#
+# ruby-line-authors
+#
+# Output the authors of every line of Ruby code in this
+# directory and all subdirectories. Names are output
+# for every line.
+#
+# Example output when Alice wrote three lines and Bob
+# wrote one, irrespective of the number of files:
+#
+# Alice
+# Alice
+# Bob
+# Alice
+
+RUBY_FILES = `find . -name '*.rb'`
+
+RUBY_FILES
+  .each_line{ |filename| puts `line-authors #{filename}` }
