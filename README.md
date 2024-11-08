@@ -47,16 +47,6 @@ It runs a subset of [Rubocop Metrics cops](https://docs.rubocop.org/rubocop/cops
 It then calculates the percentage of warnings per line written, per author. Each failing check is another warning.
 
 
-## Roadmap
-
-- [ ] Colorize the output to separate high, medium, and low warning percentages.
-- [ ] Fix the numerical alignment.
-- [ ] Add a `--csv` option.
-- [ ] Make the filters configurable.
-- [ ] Speed up the scan.
-- [ ] Add a progress bar.
-
-
 ## Intent
 
 This is a team management tool to:
@@ -75,6 +65,17 @@ Code complexity is the killer of understandability. Studies have found that deve
 1. De Silva, Dilshan, et al. The Relationship between Code Complexity and Software Quality: An Empirical Study. 2023, https://www.researchgate.net/publication/370761578_The_Relationship_between_Code_Complexity_and_Software_Quality_An_Empirical_Study.
 2.  See e.g., ISO 26262-1:2018(En), Road Vehicles — Functional Safety — Part 1: Vocabulary. https://www.iso.org/obp/ui/en/#iso:std:iso:26262:-1:ed-2:v1:en. Accessed 29 Sept. 2024.
 3.  Feitelson, Dror G. “From Code Complexity Metrics to Program Comprehension.” Communications of the ACM, vol. 66, no. 5, May 2023, pp. 52–61. DOI.org (Crossref), https://doi.org/10.1145/3546576.
+
+
+## Roadmap
+
+- [ ] Colorize the output to separate high, medium, and low warning percentages.
+- [ ] Fix the numerical alignment.
+- [ ] Add a `--csv` option.
+- [ ] Make the filters configurable.
+- [ ] Speed up the scan.
+- [ ] Add a progress bar.
+
 
 ## Contributing
 
