@@ -16,11 +16,9 @@ def create_combined_stats(part_stats, whole_stats)
   whole_data = make_data_set(whole_stats)
 
   whole_data.map do |label, whole_count|
-    part_count = part_data[label] || 0
-
     {
       label:,
-      part_count:,
+      part_count: part_data[label] || 0,
       whole_count:,
       percent: float_to_percent(part_count.to_f / whole_count)
     }
