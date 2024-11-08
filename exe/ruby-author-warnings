@@ -21,10 +21,12 @@ RUBOCOP_WARNINGS = `rubocop --format json --force-default-config --only Metrics/
 
 LOCATIONS =
   JSON
-    .parse(RUBOCOP_WARNINGS)['files']
-    .reject{ |f| f['offenses'].empty? }
-    .map{ |f| f['offenses']
-      .map{|o| { path: f['path'], begin: o['location']['start_line'], end: o['location']['last_line'] }}}
+  .parse(RUBOCOP_WARNINGS)['files']
+  .reject { |f| f['offenses'].empty? }
+  .map do |f|
+    f['offenses']
+      .map { |o| { path: f['path'], begin: o['location']['start_line'], end: o['location']['last_line'] } }
+  end
     .flatten
 
 LOCATIONS.each do |location|
