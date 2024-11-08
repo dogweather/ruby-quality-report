@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    quality_report (1.2.1)
+    quality_report (1.2.2)
       rubocop (~> 1.68)
       tty-table (~> 0.12.0)
 
