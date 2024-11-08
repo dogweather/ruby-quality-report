@@ -44,7 +44,7 @@ It runs Rubocop code quality checks on `*.rb` files that flag single lines or me
 - Method Length
 - Perceived Complexity
 
-It then calculates the percentage of lines flagged by each check, per author.
+It then calculates the percentage of lines flagged by each check, per author. Each failing check is another flag.
 
 
 ## Roadmap
