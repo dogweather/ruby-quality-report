@@ -33,12 +33,16 @@ def make_data_set(two_column_data)
 end
 
 def generate_csv(combined_stats)
-  combined_stats
-    .sort_by{|s| s[:percent]}
-    .reverse
+  generate_data(combined_stats)
     .map{ |stats| [stats[:label], stats[:percent], stats[:part_count], stats[:whole_count]].join(',') }
     .tap{|x| x.prepend(["Author,Percent Flagged,Flagged Lines,All Lines"])}
     .join("\n")
+end
+
+def generate_data(combined_stats)
+  combined_stats
+    .sort_by{|s| s[:percent]}
+    .reverse
 end
 
 
