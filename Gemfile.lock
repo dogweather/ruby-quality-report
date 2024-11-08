@@ -1,8 +1,9 @@
 PATH
   remote: .
   specs:
-    quality_report (1.0.0)
+    quality_report (1.1.0)
       rubocop (~> 1.68)
+      tty-table (~> 0.12.0)
 
 GEM
   remote: https://rubygems.org/
@@ -15,6 +16,8 @@ GEM
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
+    pastel (0.8.0)
+      tty-color (~> 0.5)
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.2.1)
@@ -45,7 +48,19 @@ GEM
     rubocop-ast (1.34.1)
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
+    strings (0.2.1)
+      strings-ansi (~> 0.2)
+      unicode-display_width (>= 1.5, < 3.0)
+      unicode_utils (~> 1.4)
+    strings-ansi (0.2.0)
+    tty-color (0.6.0)
+    tty-screen (0.8.2)
+    tty-table (0.12.0)
+      pastel (~> 0.8)
+      strings (~> 0.2.0)
+      tty-screen (~> 0.8)
     unicode-display_width (2.6.0)
+    unicode_utils (1.4.0)
 
 PLATFORMS
   arm64-darwin-24

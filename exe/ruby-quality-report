@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'tty-table'
 
 #
 # ruby-quality-report
@@ -14,11 +17,12 @@ def create_combined_stats(part_stats, whole_stats)
 
   whole_data.map do |label, whole_count|
     part_count = part_data[label] || 0
+
     {
       label:,
       part_count:,
       whole_count:,
-      percent: part_count.to_f / whole_count.to_f
+      percent: float_to_percent(part_count.to_f / whole_count)
     }
   end
 end
@@ -33,21 +37,43 @@ def make_data_set(two_column_data)
 end
 
 def generate_csv(combined_stats)
-  combined_stats
-    .sort_by{|s| s[:percent]}
-    .reverse
-    .map{ |stats| [stats[:label], stats[:percent], stats[:part_count], stats[:whole_count]].join(',') }
-    .tap{|x| x.prepend(["Author,Percent Flagged,Flagged Lines,All Lines"])}
+  generate_data(combined_stats)
+    .map { |stats| [stats[:label], stats[:percent], stats[:part_count], stats[:whole_count]].join(',') }
+    .tap { |x| x.prepend(['Author,Percent Flagged,Flagged Lines,All Lines']) }
     .join("\n")
 end
 
+def generate_table(combined_stats)
+  table = TTY::Table.new(header: ['Author', 'Percent Flagged', 'Flagged Lines', 'All Lines'])
+
+  generate_data(combined_stats).each do |stats|
+    next if should_skip?(stats)
+
+    table << [stats[:label], "#{stats[:percent]}%", stats[:part_count], stats[:whole_count]]
+  end
+
+  table.render(:unicode)
+end
+
+def generate_data(combined_stats)
+  combined_stats
+    .sort_by { |s| s[:percent] }
+    .reverse
+end
+
+def should_skip?(stats)
+  stats[:whole_count] < 200
+end
+
+def float_to_percent(a_float)
+  (Float(a_float) * 100).round(1)
+end
 
 #
 # Execution begins here
 #
-PART_STATS  = `ruby-author-warnings | frequency-list`
-WHOLE_STATS = `ruby-line-authors | frequency-list`
-
+PART_STATS     = `ruby-author-warnings | frequency-list`
+WHOLE_STATS    = `ruby-line-authors | frequency-list`
 COMBINED_STATS = create_combined_stats(PART_STATS, WHOLE_STATS)
 
-puts generate_csv(COMBINED_STATS)
+puts generate_table(COMBINED_STATS)
