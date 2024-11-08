@@ -15,7 +15,7 @@
 # Bob
 # Alice
 
-RUBY_FILES = `find . -name '*.rb'`
+RUBY_FILES = `find . -name '*.rb'`.freeze
 
 RUBY_FILES
-  .each_line{ |filename| puts `line-authors #{filename}` }
+  .each_line { |filename| puts `line-authors #{filename}` }

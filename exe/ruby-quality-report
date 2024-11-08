@@ -31,7 +31,7 @@ def make_data_set(two_column_data)
   hash = {}
   two_column_data.each_line do |line|
     count, label = line.split(' ')
-    hash[label] = count.to_i
+    hash[label]  = count.to_i
   end
   hash
 end
@@ -62,7 +62,25 @@ def generate_data(combined_stats)
 end
 
 def should_skip?(stats)
+  less_than_200_lines_total?(stats) || no_commits_in_last_60_days?(stats)
+end
+
+def less_than_200_lines_total?(stats)
   stats[:whole_count] < 200
+end
+
+def no_commits_in_last_60_days?(stats)
+  author = stats[:label]
+
+  # Get the last commit timestamp in Unix epoch format
+  last_commit = `git log -1 --format="%at" --author="#{author}"`.chomp
+  return true if last_commit.empty? # Handle case where author has no commits
+
+  # Convert Unix timestamp to Time object
+  last_commit_time = Time.at(last_commit.to_i)
+  sixty_days_ago   = Time.now - (60 * 24 * 60 * 60) # 60 days in seconds
+
+  last_commit_time < sixty_days_ago
 end
 
 def float_to_percent(a_float)
@@ -72,8 +90,8 @@ end
 #
 # Execution begins here
 #
-PART_STATS     = `ruby-author-warnings | frequency-list`
-WHOLE_STATS    = `ruby-line-authors | frequency-list`
+PART_STATS     = `ruby-author-warnings | frequency-list`.freeze
+WHOLE_STATS    = `ruby-line-authors | frequency-list`.freeze
 COMBINED_STATS = create_combined_stats(PART_STATS, WHOLE_STATS)
 
 puts generate_table(COMBINED_STATS)
