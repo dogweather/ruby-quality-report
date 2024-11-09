@@ -71,11 +71,11 @@ Complex code introduces bugs in a second, more subtle way. This is because code 
 
 - [x] Colorize the output to separate high, medium, and low warning percentages.
 - [x] Fix the numerical alignment.
-- [ ] Add a `--csv` option.
-- [ ] Make the filters configurable.
-- [ ] Speed up the scan.
 - [ ] Add a progress bar.
+- [ ] Speed up the scan.
 - [ ] Refactor from script-style coding to a more standard Ruby project.
+- [ ] Make the filters configurable.
+- [ ] Add a `--csv` option.
 
 
 ## Contributing
