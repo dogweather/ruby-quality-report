@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'tty-table'
+require 'pastel'
 
 #
 # ruby-quality-report
@@ -10,6 +11,9 @@ require 'tty-table'
 # of lines of code written by each author that have been flagged as
 # having too high of a complexity.
 #
+#
+
+SIXTY_DAYS_IN_SECONDS = 60 * 24 * 60 * 60
 
 def create_combined_stats(part_stats, whole_stats)
   part_data  = make_data_set(part_stats)
@@ -40,15 +44,42 @@ def generate_csv(combined_stats)
 end
 
 def generate_table(combined_stats)
-  table = TTY::Table.new(header: ['Author', 'Percent Flagged', 'Flagged Lines', 'All Lines'])
+  table      = TTY::Table.new(header: %W[Author Percent\nFlagged Flagged\nLines All\nLines])
+  table_data = generate_data(combined_stats).reject { should_skip?(_1) }
 
-  generate_data(combined_stats).each do |stats|
-    next if should_skip?(stats)
-
-    table << [stats[:label], "#{stats[:percent]}%", stats[:part_count], stats[:whole_count]]
+  table_data.each do |stats|
+    table << [
+      { value: stats[:label],         alignment: :left },
+      { value: "#{stats[:percent]}%", alignment: :right },
+      { value: stats[:part_count],    alignment: :right },
+      { value: stats[:whole_count],   alignment: :right }
+    ]
   end
 
-  table.render(:unicode, alignments: %i[left right right right])
+  render_table(table, table_data)
+end
+
+def render_table(table, table_data)
+  pastel = Pastel.new
+
+  table.render(:unicode, alignment: :center, padding: [0, 1], multiline: true) do |renderer|
+    renderer.border.style = :dim
+    renderer.filter = lambda { |val, row_index, _col_index|
+      if row_index <= 0
+        # Header row
+        val
+      else
+        case table_data[row_index - 1][:percent]
+        when 0...40
+          val
+        when 40...50
+          pastel.bold.yellow(val)
+        else
+          pastel.bold.red(val)
+        end
+      end
+    }
+  end
 end
 
 def generate_data(combined_stats)
@@ -73,7 +104,7 @@ def no_commits_in_last_60_days?(stats)
 
   # Convert Unix timestamp to Time object
   last_commit_time = Time.at(last_commit.to_i)
-  sixty_days_ago   = Time.now - (60 * 24 * 60 * 60) # 60 days in seconds
+  sixty_days_ago   = Time.now - SIXTY_DAYS_IN_SECONDS
 
   last_commit_time < sixty_days_ago
 end
