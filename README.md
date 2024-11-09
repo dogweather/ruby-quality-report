@@ -56,7 +56,7 @@ This is a team management tool to:
 
 ## Foundational Research
 
-Diving a little deeper, I've seen the phenomenon of micro-economies of bug-creation and bug-fixing develop within teams. Some developers appear to be extremely productive. They write a lot of code. But they also introduce a lot of bugs. The productivity is illusory.
+Diving a little deeper, I've seen the phenomenon of "micro-economies" of bug-creation and bug-fixing develop within teams. Some developers appear to be extremely productive. They write a lot of code. But they also introduce a lot of bugs. The productivity is illusory.
 
 This code quality report doesn't track **bugs** per se. But it does report **quality and complexity**. Researchers have found a strong correlation between complexity and bug rate [1]. This link is reflected, _e.g.,_ in international safety standards that mandate low software complexity to reduce failures [2].
 
