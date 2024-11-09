@@ -16,7 +16,7 @@ After a bit of a wait, it outputs a report in table form:
 
 ![Screenshot](screenshot-1@2x.webp)
 
-This is showing, for each author, the percentage of problematic lines of code. Lower is better.
+This is showing, for each author, the percentage of problematic lines of code in the repo. Lower is better.
 
 
 ### For improved relevance, it has two filters.
