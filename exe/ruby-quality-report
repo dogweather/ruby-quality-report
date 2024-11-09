@@ -65,12 +65,12 @@ def render_table(table, table_data)
         val
       else
         case table_data[row_index - 1][:percent]
-        when 0..40
+        when 0...40
           val
-        when 40..49
-          pastel.black.on_yellow(val)
+        when 40...50
+          pastel.bold.yellow(val)
         else
-          pastel.bright_white.on_red(val)
+          pastel.bold.red(val)
         end
       end
     }
