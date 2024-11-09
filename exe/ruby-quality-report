@@ -68,7 +68,7 @@ def render_table(table, table_data)
         when 0..40
           val
         when 40..49
-          pastel.bright_white.on_yellow(val)
+          pastel.black.on_yellow(val)
         else
           pastel.bright_white.on_red(val)
         end
