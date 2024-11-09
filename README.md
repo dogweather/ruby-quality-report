@@ -8,6 +8,8 @@ gem install quality-report
 
 ## Usage
 
+Change to a project directory that contains `*.rb` files. Then:
+
 ```sh
 ruby-quality-report
 ```
