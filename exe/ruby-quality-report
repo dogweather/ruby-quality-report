@@ -57,10 +57,22 @@ end
 def render_table(table, table_data)
   pastel = Pastel.new
 
-  table.render(:unicode, alignments: %i[left right right right], padding: [0, 1]) do |renderer|
+  table.render(:unicode, alignments: %i[left right right right], padding: [0, 1], multiline: true) do |renderer|
     renderer.border.style = :dim
     renderer.filter = lambda { |val, row_index, _col_index|
-      (row_index > 0) && table_data[row_index - 1][:percent] > 50 ? pastel.bright_white.on_red(val) : val
+      if row_index <= 0
+        # Header row
+        val
+      else
+        case table_data[row_index - 1][:percent]
+        when 0..40
+          val
+        when 40..49
+          pastel.bright_white.on_yellow(val)
+        else
+          pastel.bright_white.on_red(val)
+        end
+      end
     }
   end
 end
