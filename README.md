@@ -44,7 +44,7 @@ It runs a subset of [Rubocop Metrics cops](https://docs.rubocop.org/rubocop/cops
 - [Method Length](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsmethodlength)
 - [Perceived Complexity](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsperceivedcomplexity)
 
-It then calculates the percentage of warnings per line written, per author. Each failing check is another warning.
+Then it calculates the percentage of warnings per line written, per author. Each failing check is another warning.
 
 
 ## Intent
@@ -56,7 +56,7 @@ This is a team management tool to:
 
 ## Foundational Research
 
-Diving a little deeper, I've seen the phenomenon of "micro-economies" of bug-creation and bug-fixing develop within teams. Some developers appear to be extremely productive. They write a lot of code. But they also introduce a lot of bugs. The productivity is illusory.
+Diving a little deeper, I've seen the phenomenon of "micro-economies" of bug-creation and bug-fixing develop within teams. Some developers appear to be extremely productive. They write a lot of code. But they also introduce a lot of bugs. Their productivity is illusory.
 
 This code quality report doesn't track **bugs** per se. But it does report **quality and complexity**. Researchers have found a strong correlation between complexity and bug rate [1]. This link is reflected, _e.g.,_ in international safety standards that mandate low software complexity to reduce failures [2].
 
