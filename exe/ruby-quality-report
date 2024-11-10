@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'json'
 require 'tty-table'
 require 'pastel'
 
@@ -43,8 +44,8 @@ def generate_csv(combined_stats)
     .join("\n")
 end
 
-def generate_table(combined_stats)
-  table      = TTY::Table.new(header: %W[Author Percent\nFlagged Flagged\nLines All\nLines])
+def generate_table(combined_stats, colspec)
+  table      = TTY::Table.new(header: ["Author", "Percent\nFlagged", "Flagged\nLines", "All\nLines", colspec["name"]])
   table_data = generate_data(combined_stats).reject { should_skip?(_1) }
 
   table_data.each do |stats|
@@ -52,7 +53,8 @@ def generate_table(combined_stats)
       { value: stats[:label],         alignment: :left },
       { value: "#{stats[:percent]}%", alignment: :right },
       { value: stats[:part_count],    alignment: :right },
-      { value: stats[:whole_count],   alignment: :right }
+      { value: stats[:whole_count],   alignment: :right },
+      { value: "Contractor",          alignment: :center },
     ]
   end
 
@@ -113,6 +115,17 @@ def float_to_percent(a_float)
   (Float(a_float) * 100).round(1)
 end
 
+# Read JSON column spec from the first argument
+colspec = JSON.parse(ARGV[1])
+puts "Adding column: #{colspec["name"]}"
+
+# Handle JSON input like the following:
+# '{"name": "Status", "values": [{"Contractor": "blue"}, {"Employee": "green"}], "authors": [{"Robb": "Employee"}]}'
+
+
+
+
+
 #
 # Execution begins here
 #
@@ -120,4 +133,5 @@ PART_STATS     = `ruby-author-warnings | frequency-list`.freeze
 WHOLE_STATS    = `ruby-line-authors | frequency-list`.freeze
 COMBINED_STATS = create_combined_stats(PART_STATS, WHOLE_STATS)
 
-puts generate_table(COMBINED_STATS)
+
+puts generate_table(COMBINED_STATS, colspec)
