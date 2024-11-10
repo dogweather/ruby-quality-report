@@ -182,6 +182,7 @@ colspec = JSON.parse(command.params[:add_column])
 puts "Adding column:   #{colspec.keys.first}"
 
 skip = command.params[:skip] || ''
+puts "Skipping author: #{skip}" if skip != ''
 
 PART_STATS     = `ruby-author-warnings | frequency-list`.freeze
 WHOLE_STATS    = `ruby-line-authors | frequency-list`.freeze
