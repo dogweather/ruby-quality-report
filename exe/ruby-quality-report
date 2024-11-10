@@ -45,16 +45,16 @@ def generate_csv(combined_stats)
 end
 
 def generate_table(combined_stats, colspec)
-  table      = TTY::Table.new(header: ["Author", "Percent\nFlagged", "Flagged\nLines", "All\nLines", colspec["name"]])
+  table      = TTY::Table.new(header: ['Author', "Percent\nFlagged", "Flagged\nLines", "All\nLines", colspec['name']])
   table_data = generate_data(combined_stats).reject { should_skip?(_1) }
 
   table_data.each do |stats|
     table << [
-      { value: stats[:label],         alignment: :left },
-      { value: "#{stats[:percent]}%", alignment: :right },
-      { value: stats[:part_count],    alignment: :right },
-      { value: stats[:whole_count],   alignment: :right },
-      { value: "Contractor",          alignment: :center },
+      { value: stats[:label],          alignment: :left },
+      { value: "#{stats[:percent]}%",  alignment: :right },
+      { value: stats[:part_count],     alignment: :right },
+      { value: stats[:whole_count],    alignment: :right },
+      { value: colspec['values'][stats[:label]], alignment: :center }
     ]
   end
 
@@ -117,14 +117,10 @@ end
 
 # Read JSON column spec from the first argument
 colspec = JSON.parse(ARGV[1])
-puts "Adding column: #{colspec["name"]}"
+puts "Adding column: #{colspec['name']}"
 
-# Handle JSON input like the following:
-# '{"name": "Status", "values": [{"Contractor": "blue"}, {"Employee": "green"}], "authors": [{"Robb": "Employee"}]}'
-
-
-
-
+# Handle argument with JSON input like the following:
+#  --add-column  '{"name": "Status", "styles": {"Contractor": "blue", "Employee": "green"}, "values": {"Robb": "Employee", "Sean": "Contractor", "sabrina-closeknit": "Contractor", "Thorrell": "Employee", "Steve": "Contractor"}}'
 
 #
 # Execution begins here
@@ -132,6 +128,5 @@ puts "Adding column: #{colspec["name"]}"
 PART_STATS     = `ruby-author-warnings | frequency-list`.freeze
 WHOLE_STATS    = `ruby-line-authors | frequency-list`.freeze
 COMBINED_STATS = create_combined_stats(PART_STATS, WHOLE_STATS)
-
 
 puts generate_table(COMBINED_STATS, colspec)

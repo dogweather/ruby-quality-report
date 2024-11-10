@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'rubocop',   '~> 1.68'
-  spec.add_dependency "tty-table", "~> 0.12.0"
+  spec.add_dependency 'tty-table', '~> 0.12.0'
 
   spec.add_development_dependency 'rspec', '~> 3.2'
 
