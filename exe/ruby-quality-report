@@ -119,7 +119,7 @@ end
 
 # Read JSON column spec from the first argument
 colspec = JSON.parse(ARGV[1])
-puts "Adding column: #{colspec['name']}"
+puts "Adding column:   #{colspec['name']}"
 
 skip = ARGV[3]
 puts "Skipping author: #{skip}"
