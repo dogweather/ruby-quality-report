@@ -131,21 +131,12 @@ class Command
     no_command
     header 'Ruby Quality Report'
     desc <<~DESC
-      Generate a report of the percentage of flagged lines of code written by each author. For improved relevance, it excludes:
+      Generates a report of the percentage of flagged lines of code written by each author. For improved relevance, it excludes:
 
         - authors with fewer than 200 lines of code
         - authors with no commits in the previous 60 days
 
-      It runs these Rubocop metrics checks on *.rb files:
-
-        ABC Size
-        Block Length
-        Block Nesting
-        Cyclomatic Complexity
-        Method Length
-        Perceived Complexity
-
-      Then, using git, it calculates the percentage of warnings per line written, per author. Each failing check is another warning.
+      It runs a suite of Rubocop metrics checks on *.rb files recursively starting in the current directory.  Then, using git, it calculates the percentage of warnings per line written, per author. Each failing check is another warning.
     DESC
 
     example <<~EXAMPLE1
