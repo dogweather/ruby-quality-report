@@ -136,12 +136,12 @@ class Command
         - authors with fewer than 200 lines of code
         - authors with no commits in the previous 60 days
 
-      It runs a suite of Rubocop metrics checks on *.rb files recursively starting in the current directory.  Then, using git, it calculates the percentage of warnings per line written, per author. Each failing check is another warning.
+      It runs a suite of Rubocop metrics on *.rb files recursively starting in the current directory.  Then, using git, it calculates the percentage of warnings per line written, per author. Each failing check is another warning.
     DESC
 
     example <<~EXAMPLE1
-      Append a column showing employment status. The order of the keys in the JSON does not matter:
-        $ ruby-quality-report --add-column '{"Status": {"Alice": "Employee", "Bob": "Contractor"}}'
+      Append a column showing office location. The order of the keys in the JSON does not matter:
+        $ ruby-quality-report -c '{"Location": {"Amy": "NYC", "Bob": "Remote"}}'
     EXAMPLE1
 
     example <<~EXAMPLE2
@@ -152,11 +152,13 @@ class Command
 
   option :add_column do
     long '--add-column JSON'
-    desc 'Add a static column to the report. This is a simple way to add information from another source. See the examples.'
+    short '-c JSON'
+    desc 'Add a static column to the report. This is a simple way to add known information. See the examples.'
   end
 
   flag :skip do
     long '--skip AUTHOR'
+    short '-s AUTHOR'
     desc 'Filter out a git author'
   end
 
