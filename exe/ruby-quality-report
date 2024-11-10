@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'json'
+require 'tty-option'
 require 'tty-table'
 require 'pastel'
 
@@ -45,18 +46,20 @@ def generate_csv(combined_stats)
 end
 
 def generate_table(combined_stats, colspec:, skip: '')
-  table      = TTY::Table.new(header: ['Author', "Percent\nFlagged", "Flagged\nLines", "All\nLines", colspec['name']])
+  table      = TTY::Table.new(header: ['Author', "Percent\nFlagged", "Flagged\nLines", "All\nLines",
+                                       colspec.keys.first])
   table_data = generate_data(combined_stats).reject { should_skip?(_1) }
+  static_column_values = colspec.values.first
 
   table_data.each do |stats|
     next if skip.include?(stats[:label])
 
     table << [
-      { value: stats[:label],                    alignment: :left },
-      { value: "#{stats[:percent]}%",            alignment: :right },
-      { value: stats[:part_count],               alignment: :right },
-      { value: stats[:whole_count],              alignment: :right },
-      { value: colspec['values'][stats[:label]], alignment: :left }
+      { value: stats[:label],                       alignment: :left },
+      { value: "#{stats[:percent]}%",               alignment: :right },
+      { value: stats[:part_count],                  alignment: :right },
+      { value: stats[:whole_count],                 alignment: :right },
+      { value: static_column_values[stats[:label]], alignment: :left }
     ]
   end
 
@@ -117,15 +120,64 @@ def float_to_percent(a_float)
   (Float(a_float) * 100).round(1)
 end
 
-# Read JSON column spec from the first argument
-colspec = JSON.parse(ARGV[1])
-puts "Adding column:   #{colspec['name']}"
+#
+# CLI Argument Parser
+#
+class Command
+  include TTY::Option
 
-skip = ARGV[3] || ''
-puts "Skipping author: #{skip}" if skip != ''
+  usage do
+    program 'ruby-quality-report'
+    no_command
+    header 'Ruby Quality Report'
+    desc 'Generate a report of the percentage of flagged lines of code written by each author'
 
-# Handle argument with JSON input like the following:
-#  --add-column  '{"name": "Status", "styles": {"Contractor": "blue", "Employee": "green"}, "values": {"Robb": "Employee", "Sean": "Contractor", "sabrina-closeknit": "Contractor", "Thorrell": "Employee", "Steve": "Contractor"}}'
+    example <<~EXAMPLE1
+      Append a column showing employment status
+        $ ruby-quality-report --add-column '{"Status": {"Alice": "Employee", "Bob": "Contractor"}}'
+    EXAMPLE1
+
+    example <<~EXAMPLE2
+      Skip one author
+        $ ruby-quality-report --skip Cathy
+    EXAMPLE2
+  end
+
+  option :add_column do
+    long '--add-column JSON'
+    desc 'Add a static column to the report. See the examples for the format.'
+  end
+
+  flag :skip do
+    long '--skip AUTHOR'
+    desc 'Filter out a git author'
+  end
+
+  flag :help do
+    short '-h'
+    long '--help'
+    desc 'Print this help'
+  end
+
+  def run
+    if params[:help]
+      print help
+      exit 1
+    elsif params.errors.any?
+      puts params.errors.summary
+      exit 1
+    end
+  end
+end
+
+command = Command.new
+command.parse
+command.run
+
+colspec = JSON.parse(command.params[:add_column])
+puts "Adding column:   #{colspec.keys.first}"
+
+skip = command.params[:skip] || ''
 
 #
 # Execution begins here
