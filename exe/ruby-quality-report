@@ -49,10 +49,10 @@ def generate_table(combined_stats)
 
   table_data.each do |stats|
     table << [
-      { value: stats[:label],         alignment: :left },
-      { value: "#{stats[:percent]}%", alignment: :right },
-      { value: stats[:part_count],    alignment: :right },
-      { value: stats[:whole_count],   alignment: :right }
+      { value: stats[:label],                          alignment: :left },
+      { value: "#{stats[:percent]}%",                  alignment: :right },
+      { value: int_to_accounting(stats[:part_count]),  alignment: :right },
+      { value: int_to_accounting(stats[:whole_count]), alignment: :right }
     ]
   end
 
@@ -109,8 +109,21 @@ def no_commits_in_last_60_days?(stats)
   last_commit_time < sixty_days_ago
 end
 
+###
+# Converts a float to an integer percentage
+#
 def float_to_percent(a_float)
-  (Float(a_float) * 100).round(1)
+  (Float(a_float) * 100).round
+end
+
+##
+# Converts an integer to a string with commas separating thousands.
+#
+# An alternative implementation is:
+#   an_int.to_s.gsub(/(\d)(?=(\d{3})+(?!\d))/, '\\1,')
+#
+def int_to_accounting(an_int)
+  an_int.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
 end
 
 #
