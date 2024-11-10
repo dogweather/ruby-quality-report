@@ -50,11 +50,11 @@ def generate_table(combined_stats, colspec)
 
   table_data.each do |stats|
     table << [
-      { value: stats[:label],          alignment: :left },
-      { value: "#{stats[:percent]}%",  alignment: :right },
-      { value: stats[:part_count],     alignment: :right },
-      { value: stats[:whole_count],    alignment: :right },
-      { value: colspec['values'][stats[:label]], alignment: :center }
+      { value: stats[:label],                    alignment: :left },
+      { value: "#{stats[:percent]}%",            alignment: :right },
+      { value: stats[:part_count],               alignment: :right },
+      { value: stats[:whole_count],              alignment: :right },
+      { value: colspec['values'][stats[:label]], alignment: :left }
     ]
   end
 
