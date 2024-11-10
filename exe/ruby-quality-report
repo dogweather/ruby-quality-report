@@ -121,7 +121,7 @@ end
 colspec = JSON.parse(ARGV[1])
 puts "Adding column: #{colspec['name']}"
 
-skip = JSON.parse(ARGV[3])
+skip = ARGV[3]
 puts "Skipping author: #{skip}"
 
 # Handle argument with JSON input like the following:
