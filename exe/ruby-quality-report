@@ -170,6 +170,10 @@ class Command
   end
 end
 
+#
+# Execution begins here
+#
+
 command = Command.new
 command.parse
 command.run
@@ -179,9 +183,6 @@ puts "Adding column:   #{colspec.keys.first}"
 
 skip = command.params[:skip] || ''
 
-#
-# Execution begins here
-#
 PART_STATS     = `ruby-author-warnings | frequency-list`.freeze
 WHOLE_STATS    = `ruby-line-authors | frequency-list`.freeze
 COMBINED_STATS = create_combined_stats(PART_STATS, WHOLE_STATS)
