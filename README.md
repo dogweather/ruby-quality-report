@@ -95,6 +95,7 @@ Complex code introduces bugs in a second, more subtle way. This is because code 
 - [ ] Refactor from script-style coding to a more standard Ruby project.
 - [ ] Make the filters configurable.
 - [ ] Add a `--csv` option.
+- [ ] Try using the git `email` attribute to automatically determine if an author is a team member or external.
 
 
 ## Contributing
