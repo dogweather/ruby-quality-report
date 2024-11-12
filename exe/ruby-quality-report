@@ -58,7 +58,7 @@ def generate_table(combined_stats, colspec:, skip: '')
       { value: stats[:label],                          alignment: :left },
       { value: "#{stats[:percent]}%",                  alignment: :right },
       { value: int_to_accounting(stats[:part_count]),  alignment: :right },
-      { value: int_to_accounting(stats[:whole_count]), alignment: :right }
+      { value: int_to_accounting(stats[:whole_count]), alignment: :right },
       { value: static_column_values[stats[:label]], alignment: :left }
     ]
   end
