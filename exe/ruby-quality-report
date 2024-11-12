@@ -46,19 +46,20 @@ def generate_csv(combined_stats)
 end
 
 def generate_table(combined_stats, colspec: {}, skip: '')
-  default_headings = ['Author', 'Percent Flagged', 'Flagged Lines', 'All lines']
-  static_heading   = colspec.keys&.first # Handle just one column for now
-  all_headings     = (default_headings + [static_heading]).compact
+  author_heading   = ['Author']
+  static_heading   = [colspec.keys&.first].compact
+  default_headings = ['Percent Flagged', 'Flagged Lines', 'All lines']
+  all_headings     = author_heading + static_heading + default_headings
 
   table         = TTY::Table.new(header: all_headings)
   table_data    = generate_data(combined_stats).reject { should_skip?(_1) }
-  static_values = colspec[static_heading] || {}
+  static_values = colspec[static_heading.first] || {}
 
   table_data.each do |stats|
     next if skip.include?(stats[:author])
 
     author_column   = [{ value: stats[:author], alignment: :left }]
-    static_column   = [static_heading ? { value: static_values[stats[:author]], alignment: :left } : nil]
+    static_column   = [static_heading.any? ? { value: static_values[stats[:author]], alignment: :left } : nil]
     dynamic_columns = [
       { value: "#{stats[:percent]}%",                  alignment: :right },
       { value: int_to_accounting(stats[:part_count]),  alignment: :right },
