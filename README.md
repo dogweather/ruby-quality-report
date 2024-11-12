@@ -44,15 +44,15 @@ I like the results best when run from `/app`. This is how I generated the report
 
 ## Inspiration & Intent
 
-I had a hunch that this phenomenon was happening in a team:
+I had a hunch that this was happening on a project I'm familiar with:
 
 ![Dilbert Strip: Bug Bonus](dilbert-bug-bounty.jpeg)
 
-As it turned out, there _was_ a measurable difference between the employees and the consultants' code.
+So I wrote this gem. As it turned out, there _was_ a measurable difference between the employees and the consultants' code.
 
-### This is a team management tool to:
+### I'm now using this as a management tool to:
 
-- understand the quality of the code your team is producing,
+- understand the quality of the code a team is producing,
 - identify programmers who'd benefit from mentorship and education,
 - reveal differences between different developer groups.
 
