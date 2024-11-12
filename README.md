@@ -3,7 +3,7 @@
 ## Installation
 
 ```sh
-gem install quality-report
+gem install quality_report
 ```
 
 ## Usage
