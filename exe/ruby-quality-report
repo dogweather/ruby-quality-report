@@ -45,27 +45,27 @@ def generate_csv(combined_stats)
     .join("\n")
 end
 
-def generate_table(combined_stats, colspec: [], skip: '')
+def generate_table(combined_stats, colspec: {}, skip: '')
   default_headings = ['Author', 'Percent Flagged', 'Flagged Lines', 'All lines']
-  static_headings  = []
-  if colspec
-    static_headings << colspec.keys.first
-  end
+  static_heading   = colspec.keys&.first # Handle just one column for now
+  all_headings     = (default_headings + [static_heading]).compact
 
-  table      = TTY::Table.new(header: default_headings + static_headings)
-  table_data = generate_data(combined_stats).reject { should_skip?(_1) }
-  static_column_values = colspec.values.first
+  table         = TTY::Table.new(header: all_headings)
+  table_data    = generate_data(combined_stats).reject { should_skip?(_1) }
+  static_values = colspec[static_heading] || {}
 
   table_data.each do |stats|
     next if skip.include?(stats[:label])
 
-    table << [
+    new_row = [
       { value: stats[:label],                          alignment: :left },
       { value: "#{stats[:percent]}%",                  alignment: :right },
       { value: int_to_accounting(stats[:part_count]),  alignment: :right },
-      { value: int_to_accounting(stats[:whole_count]), alignment: :right },
-      { value: static_column_values[stats[:label]], alignment: :left }
+      { value: int_to_accounting(stats[:whole_count]), alignment: :right }
     ]
+    new_row << { value: static_values[stats[:label]], alignment: :left } if static_heading
+
+    table << new_row
   end
 
   render_table(table, table_data)
@@ -205,14 +205,15 @@ command = Command.new
 command.parse
 command.run
 
-colspec = JSON.parse(command.params[:add_column])
-puts "Adding column:   #{colspec.keys.first}"
+add_column_param = command.params[:add_column]
+colspec          = add_column_param ? JSON.parse(add_column_param) : {}
+puts "Adding column: #{colspec.keys.first}" unless colspec.empty?
 
 skip = command.params[:skip] || ''
 puts "Skipping author: #{skip}" if skip != ''
 
 PART_STATS     = `ruby-author-warnings | frequency-list`.freeze
-WHOLE_STATS    = `ruby-line-authors | frequency-list`.freeze
+WHOLE_STATS    = `ruby-line-authors    | frequency-list`.freeze
 COMBINED_STATS = create_combined_stats(PART_STATS, WHOLE_STATS)
 
 puts generate_table(COMBINED_STATS, colspec:, skip:)
