@@ -14,7 +14,7 @@ Change to a project directory that contains `*.rb` files. Then:
 ruby-quality-report
 ```
 
-After a bit of a wait, it outputs a report in table form:
+After a bit of a wait, it prints a table to stdout:
 
 ![Screenshot](quality-report-screenshot-2@2x.webp)
 
