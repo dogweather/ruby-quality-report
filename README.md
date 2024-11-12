@@ -18,7 +18,7 @@ After a bit of a wait, it prints a table to stdout:
 
 ![Screenshot](quality-report-screenshot-2@2x.webp)
 
-This is showing, for each author, the percentage of problematic lines of code in the repo. Lower is better.
+This is showing, for each contributor, the percentage of problematic lines of code in the repo. Lower is better.
 I added the **Status** column data manually using the `--add-column` option:
 
 ```
