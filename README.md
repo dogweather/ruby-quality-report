@@ -48,7 +48,7 @@ I had a hunch that this was happening on a project I'm familiar with:
 
 ![Dilbert Strip: Bug Bonus](dilbert-bug-bounty.jpeg)
 
-So I wrote this gem. As it turned out, there _was_ a measurable difference between the employees and the consultants' code.
+So I wrote this gem. As it turned out, there _was_ a measurable difference between staff and the consultants.
 
 ### I'm now using this as a management tool to:
 
