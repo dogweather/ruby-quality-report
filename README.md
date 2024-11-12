@@ -42,6 +42,20 @@ Examples:
 It works great in Rails projects. It examines code recursively starting in the current directory. In my testing,
 I like the results best when run from `/app`. This is how I generated the report, above.
 
+## Inspiration & Intent
+
+I had a hunch that this phenomenon was happening in a team:
+
+![Dilbert Strip: Bug Bonus](dilbert-bug-bounty.jpeg)
+
+As it turned out, there _was_ a measurable difference between the employees and the consultants' code.
+
+### This is a team management tool to:
+
+- understand the quality of the code your team is producing,
+- identify programmers who'd benefit from mentorship and education,
+- reveal differences between different developer groups.
+
 
 ## How it works
 
@@ -55,7 +69,6 @@ It runs a subset of [Rubocop Metrics cops](https://docs.rubocop.org/rubocop/cops
 - [Perceived Complexity](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsperceivedcomplexity)
 
 Then, using git, it calculates the percentage of warnings per line written, per author. Each failing check is another warning.
-
 ### For improved relevance, it has two filters.
 
 It excludes:
@@ -63,13 +76,6 @@ It excludes:
 - authors with fewer than 200 lines of code
 - authors with no commits in the previous 60 days
 
-
-## Intent
-
-This is a team management tool to:
-
-- understand the quality of the code your team is producing
-- identify programmers who'd benefit from mentorship and education
 
 ## Foundational Research
 
