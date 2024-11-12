@@ -21,56 +21,60 @@ def create_combined_stats(part_stats, whole_stats)
   part_data  = make_data_set(part_stats)
   whole_data = make_data_set(whole_stats)
 
-  whole_data.map do |label, whole_count|
-    part_count = part_data[label] || 0
+  whole_data.map do |author, whole_count|
+    part_count = part_data[author] || 0
     percent    = float_to_percent(part_count.to_f / whole_count)
 
-    { label:, part_count:, whole_count:, percent: }
+    { author:, part_count:, whole_count:, percent: }
   end
 end
 
 def make_data_set(two_column_data)
   hash = {}
   two_column_data.each_line do |line|
-    count, label = line.split(' ')
-    hash[label]  = count.to_i
+    count, author = line.split(' ')
+    hash[author]  = count.to_i
   end
   hash
 end
 
 def generate_csv(combined_stats)
   generate_data(combined_stats)
-    .map { |stats| [stats[:label], stats[:percent], stats[:part_count], stats[:whole_count]].join(',') }
+    .map { |stats| [stats[:author], stats[:percent], stats[:part_count], stats[:whole_count]].join(',') }
     .tap { |x| x.prepend(['Author,Percent Flagged,Flagged Lines,All Lines']) }
     .join("\n")
 end
 
 def generate_table(combined_stats, colspec: {}, skip: '')
-  default_headings = ['Author', 'Percent Flagged', 'Flagged Lines', 'All lines']
-  static_heading   = colspec.keys&.first # Handle just one column for now
-  all_headings     = (default_headings + [static_heading]).compact
+  author_heading   = ['Author']
+  static_heading   = [colspec.keys&.first].compact
+  default_headings = ['Percent Flagged', 'Flagged Lines', 'All lines']
+  all_headings     = author_heading + static_heading + default_headings
 
   table         = TTY::Table.new(header: all_headings)
   table_data    = generate_data(combined_stats).reject { should_skip?(_1) }
-  static_values = colspec[static_heading] || {}
+  static_values = colspec[static_heading.first] || {}
 
   table_data.each do |stats|
-    next if skip.include?(stats[:label])
+    next if skip.include?(stats[:author])
 
-    new_row = [
-      { value: stats[:label],                          alignment: :left },
+    author_column   = [{ value: stats[:author], alignment: :left }]
+    static_column   = [static_heading.any? ? { value: static_values[stats[:author]], alignment: :left } : nil]
+    dynamic_columns = [
       { value: "#{stats[:percent]}%",                  alignment: :right },
       { value: int_to_accounting(stats[:part_count]),  alignment: :right },
       { value: int_to_accounting(stats[:whole_count]), alignment: :right }
     ]
-    new_row << { value: static_values[stats[:label]], alignment: :left } if static_heading
 
-    table << new_row
+    table << (author_column + static_column + dynamic_columns).compact
   end
 
   render_table(table, table_data)
 end
 
+##
+# Renders the table with color coding based on the percentage of flagged lines.
+#
 def render_table(table, table_data)
   pastel = Pastel.new
 
@@ -108,7 +112,7 @@ def less_than_200_lines_total?(stats)
 end
 
 def no_commits_in_last_60_days?(stats)
-  author = stats[:label]
+  author = stats[:author]
 
   # Get the last commit timestamp in Unix epoch format
   last_commit = `git log -1 --format="%at" --author="#{author}"`.chomp
