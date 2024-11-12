@@ -73,6 +73,8 @@ Complex code introduces bugs in a second, more subtle way. This is because code 
 
 - [x] Colorize the output to separate high, medium, and low warning percentages.
 - [x] Fix the numerical alignment.
+- [ ] --add-column option.
+- [ ] --skip option.
 - [ ] Add a progress bar.
 - [ ] Speed up the scan.
 - [ ] Refactor from script-style coding to a more standard Ruby project.
