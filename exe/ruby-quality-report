@@ -57,15 +57,15 @@ def generate_table(combined_stats, colspec: {}, skip: '')
   table_data.each do |stats|
     next if skip.include?(stats[:author])
 
-    static_column   = static_heading ? [{ value: static_values[stats[:author]], alignment: :left }] : []
+    author_column   = [{ value: stats[:author], alignment: :left }]
+    static_column   = [static_heading ? { value: static_values[stats[:author]], alignment: :left } : nil]
     dynamic_columns = [
-      { value: stats[:author],                         alignment: :left },
       { value: "#{stats[:percent]}%",                  alignment: :right },
       { value: int_to_accounting(stats[:part_count]),  alignment: :right },
       { value: int_to_accounting(stats[:whole_count]), alignment: :right }
     ]
 
-    table << (static_column + dynamic_columns)
+    table << (author_column + static_column + dynamic_columns).compact
   end
 
   render_table(table, table_data)
