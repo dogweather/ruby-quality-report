@@ -19,20 +19,27 @@ After a bit of a wait, it prints a table to stdout:
 ![Screenshot](quality-report-screenshot-2@2x.webp)
 
 This is showing, for each author, the percentage of problematic lines of code in the repo. Lower is better.
-I added the **Status** column data manually using the `--add-column` option.
+I added the **Status** column data manually using the `--add-column` option:
 
+```
+Options:
+  -c, --add-column JSON  Add a static column to the report. This is a simple
+                         way to add known information. See the examples.
+  -h, --help             Print this help
+  -s, --skip AUTHOR      Filter out a git author
 
-### For improved relevance, it has two filters.
+Examples:
+  Append a column showing office location. The order of the keys in the JSON
+  does not matter:
+    $ ruby-quality-report -c '{"Location": {"Amy": "NYC", "Bob": "Remote"}}'
 
-It excludes:
-
-- authors with fewer than 200 lines of code
-- authors with no commits in the previous 60 days
-
+  Skip one author:
+    $ ruby-quality-report --skip Cathy
+```
 
 ### In Rails Projects
 
-This works great in Rails projects. It examines code recursively starting in the current directory. In my testing,
+It works great in Rails projects. It examines code recursively starting in the current directory. In my testing,
 I like the results best when run from `/app`. This is how I generated the report, above.
 
 
@@ -48,6 +55,13 @@ It runs a subset of [Rubocop Metrics cops](https://docs.rubocop.org/rubocop/cops
 - [Perceived Complexity](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsperceivedcomplexity)
 
 Then, using git, it calculates the percentage of warnings per line written, per author. Each failing check is another warning.
+
+### For improved relevance, it has two filters.
+
+It excludes:
+
+- authors with fewer than 200 lines of code
+- authors with no commits in the previous 60 days
 
 
 ## Intent
