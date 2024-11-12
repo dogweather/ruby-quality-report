@@ -31,8 +31,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'rubocop',   '~> 1.68'
-  spec.add_dependency "tty-table", "~> 0.12.0"
+  spec.add_dependency 'rubocop', '~> 1.68'
+  spec.add_dependency 'tty-option', '~> 0.3.0'
+  spec.add_dependency 'tty-table', '~> 0.12.0'
 
   spec.add_development_dependency 'rspec', '~> 3.2'
 
