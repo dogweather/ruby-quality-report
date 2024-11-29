@@ -59,11 +59,6 @@ So I wrote this gem. As it turned out, there _was_ a measurable difference betwe
 
 ## How it works
 
-[This excellent video](https://youtu.be/-AzSRHiV9Cc?si=-mcb3A94KnGOvth) demonstrates the problems that the Ruby Quality Report exposes.
-
-![image](https://github.com/user-attachments/assets/2d835137-1d55-42ba-abd0-64c09cd6fe0f)
-
-
 It runs a subset of [Rubocop Metrics cops](https://docs.rubocop.org/rubocop/cops_metrics.html) on `*.rb` files that flag single lines or methods:
 
 - [ABC Size](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsabcsize)
@@ -72,6 +67,12 @@ It runs a subset of [Rubocop Metrics cops](https://docs.rubocop.org/rubocop/cops
 - [Cyclomatic Complexity](https://docs.rubocop.org/rubocop/cops_metrics.html#metricscyclomaticcomplexity)
 - [Method Length](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsmethodlength)
 - [Perceived Complexity](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsperceivedcomplexity)
+
+
+This video illustrates the problems these metrics are designed to catch:
+
+[![image](https://github.com/user-attachments/assets/2d835137-1d55-42ba-abd0-64c09cd6fe0f)](https://youtu.be/-AzSRHiV9Cc?si=-mcb3A94KnGOvth)
+
 
 Then, using git, it calculates the percentage of warnings per line written, per author. Each failing check is another warning.
 ### For improved relevance, it has two filters.
