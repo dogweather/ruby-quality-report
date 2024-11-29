@@ -59,7 +59,7 @@ So I wrote this gem. As it turned out, there _was_ a measurable difference betwe
 
 ## How it works
 
-[This excellent video](https://youtu.be/-AzSRHiV9Cc?si=-mcb3A94KnGOvth) demonstrates the problems (in Python) that the Ruby Quality Report exposes.
+[This excellent video](https://youtu.be/-AzSRHiV9Cc?si=-mcb3A94KnGOvth) demonstrates the problems that the Ruby Quality Report exposes.
 
 ![image](https://github.com/user-attachments/assets/2d835137-1d55-42ba-abd0-64c09cd6fe0f)
 
