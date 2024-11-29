@@ -59,7 +59,9 @@ So I wrote this gem. As it turned out, there _was_ a measurable difference betwe
 
 ## How it works
 
-**First,** It runs a subset of [Rubocop Metrics cops](https://docs.rubocop.org/rubocop/cops_metrics.html) on `*.rb` files that flag single lines or methods:
+### 1.
+
+It runs a subset of [Rubocop Metrics cops](https://docs.rubocop.org/rubocop/cops_metrics.html) on `*.rb` files that flag single lines or methods:
 
 - [ABC Size](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsabcsize)
 - [Block Length](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsblocklength)
@@ -77,7 +79,10 @@ This video illustrates the problems these metrics are designed to catch:
   </a>
 </div>
 
-**Second,** using git, it calculates the percentage of warnings per line written, per author. Each failing check is another warning.
+### 2.
+
+Using git, it calculates the percentage of warnings per line written, per author. Each failing check is another warning.
+
 
 ### For improved relevance, it has two filters.
 
