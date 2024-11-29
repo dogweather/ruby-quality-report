@@ -71,7 +71,7 @@ So I wrote this gem. As it turned out, there _was_ a measurable difference betwe
 
 This video illustrates the problems these metrics are designed to catch:
 
-<div style="text-align: center">
+<div align="center">
   <a href="https://youtu.be/-AzSRHiV9Cc?si=-mcb3A94KnGOvth">
     <img src="https://github.com/user-attachments/assets/2d835137-1d55-42ba-abd0-64c09cd6fe0f">
   </a>
