@@ -50,6 +50,14 @@ I had a hunch that this was happening on a project I'm familiar with:
 
 So I wrote this gem. As it turned out, there _was_ a measurable difference between staff and the consultants.
 
+### Unconvinced?
+
+This excellent video demonstrates the problems (in Python) that the Ruby Quality Report exposes:
+
+![image](https://github.com/user-attachments/assets/2d835137-1d55-42ba-abd0-64c09cd6fe0f)
+
+[Watch on YouTube](https://youtu.be/-AzSRHiV9Cc?si=-mcb3A94KnGOvthx)
+
 ### I'm now using this as a management tool to:
 
 - understand the quality of the code a team is producing,
