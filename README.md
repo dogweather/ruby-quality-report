@@ -71,7 +71,7 @@ It runs a subset of [Rubocop Metrics cops](https://docs.rubocop.org/rubocop/cops
 - [Perceived Complexity](https://docs.rubocop.org/rubocop/cops_metrics.html#metricsperceivedcomplexity)
 
 
-This video illustrates the problems these metrics are designed to catch:
+Here's a great video that illustrates the problems these metrics are designed to catch:
 
 <div align="center">
   <a href="https://youtu.be/-AzSRHiV9Cc?si=-mcb3A94KnGOvth">
